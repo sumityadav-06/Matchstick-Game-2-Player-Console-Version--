@@ -1,0 +1,68 @@
+#include <stdio.h>
+ #include <stdbool.h>
+ void displayRules() {
+ printf("--- Welcome to the Matchstick Game!---\n");
+ printf("Total matchsticks: 21\n");
+ printf("You and the computer will take turns.\n");
+ printf("You can pick 1, 2, 3, or 4 matchsticks at a time.\n");
+ printf("The player who is forced to pick the LAST matchstick LOSES.\n");
+ printf("-------------------------------------------\n\n");
+ }
+ void displayMatchsticks(int count) {
+ printf("Remaining sticks: ");
+ for (int i = 0; i < count; i++) {
+ printf("| ");
+ }
+ printf("\n");
+ }
+ int getUserPick(int current_sticks) {
+ int pick = 0;
+ while (true) {
+ printf("Your turn. Pick matchsticks (1-4): ");
+if (scanf("%d", &pick) != 1) {
+ printf("Invalid input. Please enter a number between 1 and 4.\n");
+ while (getchar() != '\n');
+ continue;
+ }
+ if (pick < 1 || pick > 4) {
+ printf("Invalid pick. You must pick 1, 2, 3, or 4.\n");
+ }
+ else if (pick > current_sticks) {
+ printf("Invalid pick. There are only %d sticks left.\n", current_sticks);
+ }
+ else {
+ break;
+ }
+ }
+ return pick;
+ }
+ int main() {
+ int total_matchsticks = 21;
+ int user_pick = 0;
+ int computer_pick = 0;
+ displayRules();
+ printf("--- YOUR TURN TO START---\n\n");
+while (total_matchsticks > 0) {
+ displayMatchsticks(total_matchsticks);
+ printf("There are %d matchsticks left.\n", total_matchsticks);
+ user_pick = getUserPick(total_matchsticks);
+ total_matchsticks-= user_pick;
+ printf("You picked %d matchstick(s).\n\n", user_pick);
+ if (total_matchsticks == 0) {
+ printf("You picked the last matchstick. **You lose!**\n");
+ break;
+ }
+ displayMatchsticks(total_matchsticks);
+ printf("There are %d matchsticks left.\n", total_matchsticks);
+ computer_pick = 5- user_pick;
+ total_matchsticks-= computer_pick;
+ printf("Computer picks %d matchstick(s).\n\n", computer_pick);
+ if (total_matchsticks == 0) {
+ printf("Computer picked the last matchstick. **Computer loses!**\n");
+ printf("(This should never happen if the AI is correct!)\n");
+ break;
+}
+ }
+ printf("\n--- Game Over---\n");
+ return 0;
+ }
