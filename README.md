@@ -8,6 +8,7 @@ The game starts with 21 matchsticks.
 Each player can pick 1 to 4 matchsticks per turn.
 The player forced to pick the last matchstick loses.
 The computer uses a smart strategy (computer_pick = 5 - user_pick) to ensure a guaranteed win.
+
 ⚙️ Algorithm
 Start the program.
 Initialize total matchsticks = 21.
